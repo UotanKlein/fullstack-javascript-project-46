@@ -2,7 +2,7 @@
 [![Actions Status](https://github.com/UotanKlein/fullstack-javascript-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/UotanKlein/fullstack-javascript-project-46/actions)
 
 
-## gendiff <filepath1> <filepath2>
+# gendiff <filepath1> <filepath2>
 
 Находит различия между плоскими файлами (JSON).
 
@@ -21,7 +21,7 @@ name2.json
   "host": "hexlet.io"
 }
 
-# gendiff ../name1.json ../name2.json
+## gendiff ../name1.json ../name2.json
 
 Output:
 {

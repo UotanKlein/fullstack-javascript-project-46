@@ -3,3 +3,6 @@ install:
 
 test:
 	npm run test
+
+coverage:
+	npm test -- --coverage

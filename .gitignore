@@ -1,1 +1,12 @@
-node_modules
+# Node.js
+node_modules/
+
+# Coverage
+coverage
+
+# Jest
+jest.config.js
+coverage-final.json
+
+# Istanbul coverage
+.nyc_output/

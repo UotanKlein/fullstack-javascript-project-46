@@ -21,6 +21,16 @@ const otherChange = (obj) => {
   return result;
 }
 
+const createData = (cur, pref, val) => ({ perfix: pref, key: cur, value: val });
+
+const createResponse = (acc, cur, ...perfval) => {
+  const createInfo = perfval.reduce((accum, [pref, val]) => [...accum, createData(cur, pref, val)], [])
+  return {
+    ...acc,
+    [cur]: createInfo,
+  };
+}
+
 const  collectArrays = (acc, cur, obj1, obj2) => {
   const value1 = obj1[cur];
   const value2 = obj2[cur];
@@ -28,27 +38,26 @@ const  collectArrays = (acc, cur, obj1, obj2) => {
   const add = '+ '
   const del = '- '
   const nothing = '  '
-
   let answer = acc;
 
   if ((_.isObject(value1) && _.isObject(value2))) {
-    answer = {...acc, [cur]: [{ perfix: nothing, key: cur, value: [comparisonObjs(value1, value2)] }]};
+    answer = createResponse(acc, cur, [nothing, [comparisonObjs(value1, value2)]]);
   } else if (_.isObject(value1) && _.isUndefined(value2)) {
-    answer ={...acc, [cur]: [{ perfix: del, key: cur, value: [otherChange(value1)] }]};
+    answer = createResponse(acc, cur, [del, [otherChange(value1)]]);
   } else if (_.isObject(value2) && _.isUndefined(value1)) {
-    answer = {...acc, [cur]: [{ perfix: add, key: cur, value: [otherChange(value2)] }]};
+    answer = createResponse(acc, cur, [add, [otherChange(value2)]]);
   } else if (_.isObject(value1) && value2) {
-    answer = {...acc, [cur]: [{ perfix: del, key: cur, value: [otherChange(value1)] }, { perfix: add, key: cur, value: value2 }]};
+    answer = createResponse(acc, cur, [del, [otherChange(value1)]], [add, value2]);
   } else if (_.isObject(value2) && value1) {
-    answer = {...acc, [cur]: [{ perfix: del, key: cur, value: [otherChange(value2)] }, { perfix: add, key: cur, value: value1 }]};
+    answer = createResponse(acc, cur, [del, [otherChange(value2)]], [add, value1]);
   } else if (value1 === value2) {
-    answer = {...acc, [cur]: [{ perfix: nothing, key: cur, value: value1 }]};
+    answer = createResponse(acc, cur, [nothing, value1]);
   } else if (!_.isUndefined(value1) && _.isUndefined(value2)) {
-    answer = {...acc, [cur]: [{ perfix: del, key: cur, value: value1 }]};
+    answer = createResponse(acc, cur, [del, value1]);
   } else if (!_.isUndefined(value2) && _.isUndefined(value1)) {
-    answer = {...acc, [cur]: [{ perfix: add, key: cur, value: value2 }] };
+    answer = createResponse(acc, cur, [add, value2]);
   } else if ((!_.isUndefined(value2) && !_.isUndefined(value1)) && (value1 !== value2)) {
-    answer = {...acc, [cur]: [{ perfix: del, key: cur, value: value1 }, { perfix: add, key: cur, value: value2 }] };
+    answer = createResponse(acc, cur, [del, value1], [add, value2]);
   }
   
   return answer;

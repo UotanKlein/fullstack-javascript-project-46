@@ -1,6 +1,8 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/UotanKlein/fullstack-javascript-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/UotanKlein/fullstack-javascript-project-46/actions)
 
+
+### Codecov
 [![codecov](https://codecov.io/gh/UotanKlein/fullstack-javascript-project-46/graph/badge.svg?token=24XG7SNMCA)](https://codecov.io/gh/UotanKlein/fullstack-javascript-project-46)
 
 # gendiff <filepath1> <filepath2>

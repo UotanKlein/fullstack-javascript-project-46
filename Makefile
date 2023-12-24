@@ -1,6 +1,9 @@
 install:
 	npm ci
 
+dependencies:
+	npm install
+
 test:
 	npm run test
 

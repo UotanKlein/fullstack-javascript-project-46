@@ -5,4 +5,4 @@ test:
 	npm run test
 
 coverage:
-	npm test -- --coverage
+	PATH=./node_modules/.bin:${PATH} npm test -- --coverage

@@ -1,10 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
-
-//Рефакторинг!!!!
-
-import comparisonObjs from './comparison.js'
+import comparisonObjs from './comparison.js';
 
 const convertYml = (content) => yaml.load(content);
 
@@ -16,36 +13,38 @@ const outputReadFile = (filePath) => fs.readFileSync(filePath, 'utf8');
 
 const outputResolve = (arg) => path.resolve(arg);
 
-const stringify = (value, replacer = ' ', spacesCount = 4) => {
+const stringify = (structure, replacer = ' ', spacesCount = 4) => {
   const iter = (currentValue, depth) => {
     if (!Array.isArray(currentValue)) {
       return `${currentValue}`;
     }
+
     const indentSize = depth * spacesCount;
     const currentIndent = replacer.repeat(indentSize);
     const bracketIndent = replacer.repeat(indentSize - spacesCount);
-    const test = currentValue.map((x) => {
+    const test = currentValue.map((arrObj) => {
       const lines = Object
-      .entries(x)
-      .map(([, val]) => {
-        const test2 = val.map((x) => {
-          const { perfix, key, value } = x;
-          return `${perfix.padStart(indentSize, currentIndent)}${key}: ${iter(value, depth + 1)}`
-        })
+        .entries(arrObj)
+        .map(([, val]) => {
+          const test2 = val.map((x) => {
+            const { perfix, key, value } = x;
 
-        return [...test2];
-      }).flat();
+            return `${perfix.padStart(indentSize, currentIndent)}${key}: ${iter(value, depth + 1)}`;
+          });
+
+          return [...test2];
+        }).flat();
       return [
         '{',
         ...lines,
         `${bracketIndent}}`,
       ].join('\n');
-    })
+    });
 
     return test[0];
   };
 
-  return iter(value, 1);
+  return iter(structure, 1);
 };
 
 const parsing = (arg1, arg2) => {
@@ -62,4 +61,3 @@ const parsing = (arg1, arg2) => {
 };
 
 export default parsing;
-

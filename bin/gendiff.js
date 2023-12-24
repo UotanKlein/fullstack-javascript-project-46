@@ -2,8 +2,7 @@
 
 import { program } from 'commander';
 
-import parsing from '../src/parse.js'
-
+import parsing from '../src/parse.js';
 
 program
   .name('gendiff')
@@ -14,7 +13,6 @@ program
   .option('-f, --format <type>', 'output format')
   .action(() => {
     const [arg1, arg2] = program.args;
-    
     console.log(parsing(arg1, arg2));
   });
 

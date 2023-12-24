@@ -1,4 +1,3 @@
-
 import parsing from '../src/parse.js';
 
 const answer = `
@@ -51,4 +50,4 @@ const answer = `
 test('comparison json and yaml', () => {
   expect(parsing('data/file1.json', 'data/file2.json')).toMatchInlineSnapshot(answer);
   expect(parsing('data/file1.yml', 'data/file2.yml')).toMatchInlineSnapshot(answer);
-})
+});

@@ -9,15 +9,11 @@ const outputReadFile = (filePath) => fs.readFileSync(filePath, 'utf8');
 
 const outputResolve = (arg) => path.resolve(arg);
 
+const outputObjKeys = (obj) => Object.keys(obj);
+
 const parse = (arg1, arg2) => {
-  const filePath1 = outputResolve(arg1);
-  const filePath2 = outputResolve(arg2);
-
-  const content1 = outputReadFile(filePath1)
-  const content2 = outputReadFile(filePath2)
-
-  const parse1 = outputParse(content1)
-  const parse2 = outputParse(content2)
+  const parse1 = outputParse(outputReadFile(outputResolve(arg1)));
+  const parse2 = outputParse(outputReadFile(outputResolve(arg2)));
 
   return [parse1, parse2]
 };
@@ -25,10 +21,7 @@ const parse = (arg1, arg2) => {
 const comparisonObjs = (arg1, arg2) => {
   const [obj1, obj2] = parse(arg1, arg2);
 
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
-
-  const mainArray = _.union(keys1, keys2).sort();
+  const mainArray = _.union(outputObjKeys(obj1), outputObjKeys(obj2)).sort();
 
   const result = mainArray.reduce((acc, cur) => {
     const value1 = obj1[cur];
@@ -49,6 +42,8 @@ const comparisonObjs = (arg1, arg2) => {
     if ((value2 && value1) && (value1 !== value2)) {
       return {...acc, [`- ${cur}`]: value1, [`+ ${cur}`]: value2};
     }
+
+    return undefined;
   }, {})
 
   return JSON.stringify(result, null, 2).replace(/"/gi, '');

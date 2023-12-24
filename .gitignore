@@ -2,7 +2,7 @@
 node_modules/
 
 # Coverage
-coverage
+coverage/
 
 # Jest
 jest.config.js

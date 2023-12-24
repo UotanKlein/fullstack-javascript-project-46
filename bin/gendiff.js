@@ -2,7 +2,7 @@
 
 import { program } from 'commander';
 
-import genDiff from '../src/parse.js'
+import genDiff from '../src/comparison.js'
 
 
 program

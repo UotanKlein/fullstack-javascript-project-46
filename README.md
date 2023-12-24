@@ -1,13 +1,14 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/UotanKlein/fullstack-javascript-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/UotanKlein/fullstack-javascript-project-46/actions)
 
+### Git Actions
+[![CI](https://github.com/UotanKlein/fullstack-javascript-project-46/actions/workflows/ci.yml/badge.svg)](https://github.com/UotanKlein/fullstack-javascript-project-46/actions/workflows/ci.yml)
+
+### Codeclimate
+[![Maintainability](https://api.codeclimate.com/v1/badges/41362aedfc17944867b2/maintainability)](https://codeclimate.com/github/UotanKlein/fullstack-javascript-project-46/maintainability)
 
 ### Codecov
 [![codecov](https://codecov.io/gh/UotanKlein/fullstack-javascript-project-46/graph/badge.svg?token=24XG7SNMCA)](https://codecov.io/gh/UotanKlein/fullstack-javascript-project-46)
-
-### Codeclimate
-
-[![Maintainability](https://api.codeclimate.com/v1/badges/41362aedfc17944867b2/maintainability)](https://codeclimate.com/github/UotanKlein/fullstack-javascript-project-46/maintainability)
 
 # gendiff <filepath1> <filepath2>
 

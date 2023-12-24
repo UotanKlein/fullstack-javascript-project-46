@@ -1,5 +1,5 @@
 
-import comparisonObjs from '../src/comparison.js';
+import parsing from '../src/parse.js';
 
 const answer1 = `
 "{
@@ -13,5 +13,5 @@ const answer1 = `
 `;
 
 test('comparison two json', () => {
-  expect(comparisonObjs('data/file1.json', 'data/file2.json')).toMatchInlineSnapshot(answer1);
+  expect(parsing('data/file1.json', 'data/file2.json')).toMatchInlineSnapshot(answer1);
 })

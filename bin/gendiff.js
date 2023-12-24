@@ -2,7 +2,7 @@
 
 import { program } from 'commander';
 
-import genDiff from '../src/comparison.js'
+import parsing from '../src/parse.js'
 
 
 program
@@ -15,7 +15,7 @@ program
   .action(() => {
     const [arg1, arg2] = program.args;
     
-    console.log(genDiff(arg1, arg2));
+    console.log(parsing(arg1, arg2));
   });
 
 program.parse(process.argv);

@@ -21,7 +21,6 @@ const stringify = (value, replacer = ' ', spacesCount = 4) => {
     if (!Array.isArray(currentValue)) {
       return `${currentValue}`;
     }
-
     const indentSize = depth * spacesCount;
     const currentIndent = replacer.repeat(indentSize);
     const bracketIndent = replacer.repeat(indentSize - spacesCount);
@@ -31,7 +30,6 @@ const stringify = (value, replacer = ' ', spacesCount = 4) => {
       .map(([, val]) => {
         const test2 = val.map((x) => {
           const { perfix, key, value } = x;
-  
           return `${perfix.padStart(indentSize, currentIndent)}${key}: ${iter(value, depth + 1)}`
         })
 

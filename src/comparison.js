@@ -34,7 +34,6 @@ const createResponse = (acc, cur, ...perfval) => {
 const  collectArrays = (acc, cur, obj1, obj2) => {
   const value1 = obj1[cur];
   const value2 = obj2[cur];
-
   const add = '+ '
   const del = '- '
   const nothing = '  '

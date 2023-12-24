@@ -9,3 +9,6 @@ test:
 
 coverage:
 	npm test -- --coverage
+
+lint:
+	npm run lint

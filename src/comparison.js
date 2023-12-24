@@ -1,5 +1,7 @@
 import _ from 'lodash';
 
+//Рефакторинг!!!!
+
 const outputObjKeys = (obj) => Object.keys(obj);
 
 const otherChange = (obj) => {
@@ -31,43 +33,29 @@ const comparisonObjs = (obj1, obj2) => {
     const del = '- '
     const nothing = '  '
 
+    let answer = acc;
+
     if ((_.isObject(value1) && _.isObject(value2))) {
-      return {...acc, [cur]: [{ perfix: nothing, key: cur, value: [comparisonObjs(value1, value2)] }]};
-    }
-
-    if (_.isObject(value1) && value2 === undefined) {
-      return {...acc, [cur]: [{ perfix: del, key: cur, value: [otherChange(value1)] }]};
-    }
-
-    if (_.isObject(value2) && value1 === undefined) {
-      return {...acc, [cur]: [{ perfix: add, key: cur, value: [otherChange(value2)] }]};
-    }
-
-    if (_.isObject(value1) && value2) {
-      return {...acc, [cur]: [{ perfix: del, key: cur, value: [otherChange(value1)] }, { perfix: add, key: cur, value: value2 }]};
-    }
-
-    if (_.isObject(value2) && value1) {
-      return {...acc, [cur]: [{ perfix: del, key: cur, value: [otherChange(value2)] }, { perfix: add, key: cur, value: value1 }]};
-    }
-
-    if (value1 === value2) {
-      return {...acc, [cur]: [{ perfix: nothing, key: cur, value: value1 }]};
-    }
-
-    if (value1 !== undefined && value2 === undefined) {
-      return {...acc, [cur]: [{ perfix: del, key: cur, value: value1 }]};
-    }
-
-    if (value2 !== undefined && value1 === undefined) {
-      return {...acc, [cur]: [{ perfix: add, key: cur, value: value2 }] };
-    }
-
-    if ((value2 !== undefined && value1 !== undefined) && (value1 !== value2)) {
-      return {...acc, [cur]: [{ perfix: del, key: cur, value: value1 }, { perfix: add, key: cur, value: value2 }] };
+      answer = {...acc, [cur]: [{ perfix: nothing, key: cur, value: [comparisonObjs(value1, value2)] }]};
+    } else if (_.isObject(value1) && _.isUndefined(value2)) {
+      answer ={...acc, [cur]: [{ perfix: del, key: cur, value: [otherChange(value1)] }]};
+    } else if (_.isObject(value2) && _.isUndefined(value1)) {
+      answer = {...acc, [cur]: [{ perfix: add, key: cur, value: [otherChange(value2)] }]};
+    } else if (_.isObject(value1) && value2) {
+      answer = {...acc, [cur]: [{ perfix: del, key: cur, value: [otherChange(value1)] }, { perfix: add, key: cur, value: value2 }]};
+    } else if (_.isObject(value2) && value1) {
+      answer = {...acc, [cur]: [{ perfix: del, key: cur, value: [otherChange(value2)] }, { perfix: add, key: cur, value: value1 }]};
+    } else if (value1 === value2) {
+      answer = {...acc, [cur]: [{ perfix: nothing, key: cur, value: value1 }]};
+    } else if (!_.isUndefined(value1) && _.isUndefined(value2)) {
+      answer = {...acc, [cur]: [{ perfix: del, key: cur, value: value1 }]};
+    } else if (!_.isUndefined(value2) && _.isUndefined(value1)) {
+      answer = {...acc, [cur]: [{ perfix: add, key: cur, value: value2 }] };
+    } else if ((!_.isUndefined(value2) && !_.isUndefined(value1)) && (value1 !== value2)) {
+      answer = {...acc, [cur]: [{ perfix: del, key: cur, value: value1 }, { perfix: add, key: cur, value: value2 }] };
     }
     
-    return acc;
+    return answer;
   }, {})
 
   return result;

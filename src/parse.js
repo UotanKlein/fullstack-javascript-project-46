@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 
+//Рефакторинг!!!!
+
 import comparisonObjs from './comparison.js'
 
 const convertYml = (content) => yaml.load(content);

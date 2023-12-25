@@ -45,30 +45,35 @@ function collectArrays(acc, cur, obj1, obj2) {
   const del = '- ';
   const nothing = '  ';
 
-  let answer = acc;
-
-  if ((_.isObject(value1) && _.isObject(value2))) {
-    // eslint-disable-next-line no-use-before-define
-    answer = createResponse(acc, cur, [nothing, [comparisonObjs(value1, value2)]]);
-  } else if (_.isObject(value1) && _.isUndefined(value2)) {
-    answer = createResponse(acc, cur, [del, [otherChange(value1)]]);
-  } else if (_.isObject(value2) && _.isUndefined(value1)) {
-    answer = createResponse(acc, cur, [add, [otherChange(value2)]]);
-  } else if (_.isObject(value1) && value2) {
-    answer = createResponse(acc, cur, [del, [otherChange(value1)]], [add, value2]);
-  } else if (_.isObject(value2) && value1) {
-    answer = createResponse(acc, cur, [del, [otherChange(value2)]], [add, value1]);
-  } else if (value1 === value2) {
-    answer = createResponse(acc, cur, [nothing, value1]);
-  } else if (!_.isUndefined(value1) && _.isUndefined(value2)) {
-    answer = createResponse(acc, cur, [del, value1]);
-  } else if (!_.isUndefined(value2) && _.isUndefined(value1)) {
-    answer = createResponse(acc, cur, [add, value2]);
-  } else if ((!_.isUndefined(value2) && !_.isUndefined(value1)) && (value1 !== value2)) {
-    answer = createResponse(acc, cur, [del, value1], [add, value2]);
-  }
-
-  return answer;
+  const operations = {
+    addObjectComparison: () => createResponse(
+      acc,
+      cur,
+      [nothing, [comparisonObjs(value1, value2)]],
+    ),
+    addObjectValue1Undefined: () => createResponse(acc, cur, [del, [otherChange(value1)]]),
+    addObjectValue2Undefined: () => createResponse(acc, cur, [add, [otherChange(value2)]]),
+    addObjectValue1: () => createResponse(acc, cur, [del, [otherChange(value1)]], [add, value2]),
+    addObjectValue2: () => createResponse(acc, cur, [del, [otherChange(value2)]], [add, value1]),
+    equalValues: () => createResponse(acc, cur, [nothing, value1]),
+    value1Undefined: () => createResponse(acc, cur, [del, value1]),
+    value2Undefined: () => createResponse(acc, cur, [add, value2]),
+    unequalValues: () => createResponse(acc, cur, [del, value1], [add, value2]),
+  };
+  // eslint-disable-next-line no-use-before-define
+  return operations[getOperationType(value1, value2)]();
 }
 
+function getOperationType(value1, value2) {
+  if (_.isObject(value1) && _.isObject(value2)) return 'addObjectComparison';
+  if (_.isObject(value1) && _.isUndefined(value2)) return 'addObjectValue1Undefined';
+  if (_.isObject(value2) && _.isUndefined(value1)) return 'addObjectValue2Undefined';
+  if (_.isObject(value1) && value2) return 'addObjectValue1';
+  if (_.isObject(value2) && value1) return 'addObjectValue2';
+  if (value1 === value2) return 'equalValues';
+  if (!_.isUndefined(value1) && _.isUndefined(value2)) return 'value1Undefined';
+  if (!_.isUndefined(value2) && _.isUndefined(value1)) return 'value2Undefined';
+  if (!_.isUndefined(value2) && !_.isUndefined(value1) && value1 !== value2) return 'unequalValues';
+  return 'default';
+}
 export default comparisonObjs;

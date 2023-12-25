@@ -24,7 +24,10 @@ const answer1 = `
     group1: {
       - baz: bas
       + baz: bars
-        foo: bar
+      - foo: {
+            test: aboba
+        }
+      + foo: bar
       - nest: {
             key: value
         }

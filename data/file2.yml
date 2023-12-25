@@ -11,7 +11,8 @@ common:
     doge:
       wow: so much
 group1:
-  foo: bar
+  foo: 
+    test: aboba
   baz: bars
   nest: str
 group3:

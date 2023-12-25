@@ -47,6 +47,10 @@ function collectArrays(acc, cur, obj1, obj2) {
 
   let answer = acc;
 
+  if ((!_.isUndefined(value2) && !_.isUndefined(value1)) && (value1 !== value2)) {
+    answer = createResponse(acc, cur, [del, value1], [add, value2]);
+  }
+
   if ((_.isObject(value1) && _.isObject(value2))) {
     // eslint-disable-next-line no-use-before-define
     answer = createResponse(acc, cur, [nothing, [comparisonObjs(value1, value2)]]);
@@ -64,10 +68,8 @@ function collectArrays(acc, cur, obj1, obj2) {
     answer = createResponse(acc, cur, [del, value1]);
   } else if (!_.isUndefined(value2) && _.isUndefined(value1)) {
     answer = createResponse(acc, cur, [add, value2]);
-  } else if ((!_.isUndefined(value2) && !_.isUndefined(value1)) && (value1 !== value2)) {
-    answer = createResponse(acc, cur, [del, value1], [add, value2]);
   }
-
+  
   return answer;
 }
 

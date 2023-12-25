@@ -4,13 +4,9 @@ import yaml from 'js-yaml';
 import comparisonObjs from './comparison.js';
 
 const convertYml = (content) => yaml.load(content);
-
 const isJson = (filePath) => path.extname(filePath) === '.json';
-
 const outputParse = (obj) => JSON.parse(obj);
-
 const outputReadFile = (filePath) => fs.readFileSync(filePath, 'utf8');
-
 const outputResolve = (arg) => path.resolve(arg);
 
 const stringify = (structure, replacer = ' ', spacesCount = 4) => {

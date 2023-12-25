@@ -1,6 +1,6 @@
 import parsing from '../src/parse.js';
 
-const answer = `
+const answer1 = `
 "{
     common: {
       + follow: false
@@ -47,7 +47,25 @@ const answer = `
 }"
 `;
 
-test('comparison json and yaml', () => {
-  expect(parsing('data/file1.json', 'data/file2.json')).toMatchInlineSnapshot(answer);
-  expect(parsing('data/file1.yml', 'data/file2.yml')).toMatchInlineSnapshot(answer);
+const answer2 = `
+"{
+  - follow: false
+    host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50
+  + timeout: 20
+  + verbose: true
+}"
+`;
+
+test('comparison json', () => {
+  expect(parsing('data/file1.json', 'data/file2.json')).toMatchInlineSnapshot(answer1);
+});
+
+test('comparison yaml', () => {
+  expect(parsing('data/file1.yml', 'data/file2.yml')).toMatchInlineSnapshot(answer1);
+});
+
+test('comparison flatten file', () => {
+  expect(parsing('data/flatfile1.json', 'data/flatfile2.json')).toMatchInlineSnapshot(answer2);
 });

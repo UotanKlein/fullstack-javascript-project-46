@@ -14,6 +14,8 @@ program
   .action((filepath1, filepath2, type) => {
     if (type.format === 'plain') {
       console.log(genDiff(filepath1, filepath2, 'plain'));
+    } else if (type.format === 'json') {
+      console.log(genDiff(filepath1, filepath2, 'json'));
     } else {
       console.log(genDiff(filepath1, filepath2));
     }

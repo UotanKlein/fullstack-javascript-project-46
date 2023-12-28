@@ -77,6 +77,85 @@ Property 'group2' was removed
 Property 'group3' was added with value: [complex value]"
 `;
 
+const answer4 = `
+"{
+  "follow": {
+    "oldValue": null,
+    "newValue": false
+  },
+  "setting1": {
+    "oldValue": "Value 1",
+    "newValue": "Value 1"
+  },
+  "setting2": {
+    "oldValue": 200,
+    "newValue": null
+  },
+  "setting3": {
+    "oldValue": true,
+    "newValue": null
+  },
+  "setting4": {
+    "oldValue": null,
+    "newValue": "blah blah"
+  },
+  "setting5": {
+    "oldValue": null,
+    "newValue": {
+      "key5": "value5"
+    }
+  },
+  "wow": {
+    "oldValue": "",
+    "newValue": "so much"
+  },
+  "key": {
+    "oldValue": "value",
+    "newValue": "value"
+  },
+  "ops": {
+    "oldValue": null,
+    "newValue": "vops"
+  },
+  "baz": {
+    "oldValue": "bas",
+    "newValue": "bars"
+  },
+  "foo": {
+    "oldValue": "bar",
+    "newValue": {
+      "test": "aboba"
+    }
+  },
+  "nest": {
+    "oldValue": {
+      "key": "value"
+    },
+    "newValue": "str"
+  },
+  "group2": {
+    "oldValue": {
+      "abc": 12345,
+      "deep": {
+        "id": 45
+      }
+    },
+    "newValue": null
+  },
+  "group3": {
+    "oldValue": null,
+    "newValue": {
+      "deep": {
+        "id": {
+          "number": 45
+        }
+      },
+      "fee": 100500
+    }
+  }
+}"
+`;
+
 test('comparison json files', () => {
   expect(parsing('data/file1.json', 'data/file2.json')).toMatchInlineSnapshot(answer1);
 });
@@ -95,4 +174,12 @@ test('comparison flatten json files plain', () => {
 
 test('comparison flatten yaml files plain', () => {
   expect(parsing('data/file1.yml', 'data/file2.yml', 'plain')).toMatchInlineSnapshot(answer3);
+});
+
+test('comparison flatten json files json', () => {
+  expect(parsing('data/file1.json', 'data/file2.json', 'json')).toMatchInlineSnapshot(answer4);
+});
+
+test('comparison flatten yaml files json', () => {
+  expect(parsing('data/file1.yml', 'data/file2.yml', 'json')).toMatchInlineSnapshot(answer4);
 });

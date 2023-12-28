@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const plain = (acc, value1, value2, format, path) => {
+const plain = (acc, value1, value2, path) => {
   let answer = acc;
 
   if ((!_.isUndefined(value2) && !_.isUndefined(value1)) && (value1 !== value2)) {

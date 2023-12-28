@@ -24,10 +24,21 @@ function comparisonObjs(obj1, obj2, format, path = '') { // Объединяет
         // eslint-disable-next-line no-use-before-define
         return [...acc, comparisonObjs(value1, value2, format, truePath)];
       }
+      if (format === 'json') {
+        return { ...acc, ...comparisonObjs(value1, value2, format, truePath) };
+      }
     }
-    return isPlain(format)
-      ? [...acc, findAnswer(acc, cur, value1, value2, format, truePath)]
-      : findAnswer(acc, cur, obj1[cur], obj2[cur], format, truePath);
+
+    if (format === 'plain') {
+      return [...acc, findAnswer(acc, cur, value1, value2, format, truePath)];
+    }
+    if (format === 'stylish') {
+      return findAnswer(acc, cur, value1, value2, format, truePath);
+    }
+    if (format === 'json') {
+      return { ...acc, ...findAnswer(acc, cur, value1, value2, format, truePath) };
+    }
+    return acc;
   }, initialValue);
 }
 

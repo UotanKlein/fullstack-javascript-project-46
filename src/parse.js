@@ -64,6 +64,9 @@ const genDiff = (arg1, arg2, format = 'stylish') => {
     return _.flattenDeep(comparisonObjs(...parse, format)).filter((x) => x !== '')
       .reduce((acc, cur) => `${acc}\n${cur}`, '');
   }
+  if (format === 'json') {
+    return JSON.stringify(comparisonObjs(...parse, format), null, 2);
+  }
 
   return stringify([comparisonObjs(...parse, format)]);
 };

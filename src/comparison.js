@@ -1,76 +1,34 @@
 import _ from 'lodash';
+import findAnswer from '../formatters/index.js';
+import createResponse from './func.js';
 
-const outputObjKeys = (obj) => Object.keys(obj);
+const isPlain = (format) => format === 'plain'; // Проверяет является ли формат plain
 
-const otherChange = (obj) => {
-  const keys = outputObjKeys(obj);
-
-  const result = keys.reduce((acc, cur) => {
-    const value1 = obj[cur];
-
-    const nothing = '  ';
-
-    if (_.isObject(value1)) {
-      return { ...acc, [cur]: [{ perfix: nothing, key: cur, value: [otherChange(value1)] }] };
-    }
-    return { ...acc, [cur]: [{ perfix: nothing, key: cur, value: value1 }] };
-  }, {});
-
-  return result;
-};
-
-const createData = (cur, pref, val) => ({ perfix: pref, key: cur, value: val });
-
-const createResponse = (acc, cur, ...perfval) => {
-  const createInfo = perfval
-    .reduce((accum, [pref, val]) => [...accum, createData(cur, pref, val)], []);
-  return {
-    ...acc,
-    [cur]: createInfo,
-  };
-};
 /* Взаимозависимые функции, я испольовал присваивание function вместо переменной,
   поэтому все должно быть ок, но линтер ругается, хотя все должно быть хорошо. */
-function comparisonObjs(obj1, obj2) {
-  const mainArray = _.union(outputObjKeys(obj1), outputObjKeys(obj2)).sort();
-  // eslint-disable-next-line no-use-before-define
-  return mainArray.reduce((acc, cur) => collectArrays(acc, cur, obj1, obj2), {});
-}
-
-function collectArrays(acc, cur, obj1, obj2) {
-  const value1 = obj1[cur];
-  const value2 = obj2[cur];
-
-  const add = '+ ';
-  const del = '- ';
-  const nothing = '  ';
-
-  let answer = acc;
-
-  if ((!_.isUndefined(value2) && !_.isUndefined(value1)) && (value1 !== value2)) {
-    answer = createResponse(acc, cur, [del, value1], [add, value2]);
-  }
-
-  if ((_.isObject(value1) && _.isObject(value2))) {
+function comparisonObjs(obj1, obj2, format, path = '') { // Объединяет объекты и вызывает конвертацию.
+  const mainArray = _.union(Object.keys(obj1), Object.keys(obj2)).sort();
+  const initialValue = isPlain(format) ? [] : {};
+  return mainArray.reduce((acc, cur) => {
+    const truePath = path === '' ? cur : `${path}.${cur}`;
     // eslint-disable-next-line no-use-before-define
-    answer = createResponse(acc, cur, [nothing, [comparisonObjs(value1, value2)]]);
-  } else if (_.isObject(value1) && _.isUndefined(value2)) {
-    answer = createResponse(acc, cur, [del, [otherChange(value1)]]);
-  } else if (_.isObject(value2) && _.isUndefined(value1)) {
-    answer = createResponse(acc, cur, [add, [otherChange(value2)]]);
-  } else if (_.isObject(value1) && value2) {
-    answer = createResponse(acc, cur, [del, [otherChange(value1)]], [add, value2]);
-  } else if (_.isObject(value2) && value1) {
-    answer = createResponse(acc, cur, [del, [otherChange(value2)]], [add, value1]);
-  } else if (value1 === value2) {
-    answer = createResponse(acc, cur, [nothing, value1]);
-  } else if (!_.isUndefined(value1) && _.isUndefined(value2)) {
-    answer = createResponse(acc, cur, [del, value1]);
-  } else if (!_.isUndefined(value2) && _.isUndefined(value1)) {
-    answer = createResponse(acc, cur, [add, value2]);
-  }
-  
-  return answer;
+    const value1 = obj1[cur];
+    const value2 = obj2[cur];
+
+    if ((_.isObject(value1) && _.isObject(value2))) {
+      // eslint-disable-next-line no-use-before-define
+      if (format === 'stylish') {
+        return createResponse(acc, cur, [' ', [comparisonObjs(value1, value2, format, truePath)]]);
+      }
+      if (format === 'plain') {
+        // eslint-disable-next-line no-use-before-define
+        return [...acc, comparisonObjs(value1, value2, format, truePath)];
+      }
+    }
+    return isPlain(format)
+      ? [...acc, findAnswer(acc, cur, value1, value2, format, truePath)]
+      : findAnswer(acc, cur, obj1[cur], obj2[cur], format, truePath);
+  }, initialValue);
 }
 
 export default comparisonObjs;

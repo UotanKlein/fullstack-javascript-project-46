@@ -1,15 +1,16 @@
 import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
+import _ from 'lodash';
 import comparisonObjs from './comparison.js';
 
-const convertYml = (content) => yaml.load(content);
-const isJson = (filePath) => path.extname(filePath) === '.json';
-const outputParse = (obj) => JSON.parse(obj);
-const outputReadFile = (filePath) => fs.readFileSync(filePath, 'utf8');
-const outputResolve = (arg) => path.resolve(arg);
+const convertYml = (content) => yaml.load(content); // Конвертирует yaml в json
+const isJson = (filePath) => path.extname(filePath) === '.json'; // Проверяет является ли объект json
+const outputParse = (obj) => JSON.parse(obj); // Парсит json объект
+const outputReadFile = (filePath) => fs.readFileSync(filePath, 'utf8'); // Читает файл и возвращает содерание
+const outputResolve = (arg) => path.resolve(arg); // Возвращает полный путь до файла
 
-const stringify = (structure, replacer = ' ', spacesCount = 4) => {
+const stringify = (structure, replacer = ' ', spacesCount = 4) => { // Преобразованные объекты собирает в сравнение для вывода.
   const iter = (currentValue, depth) => {
     if (!Array.isArray(currentValue)) {
       return `${currentValue}`;
@@ -53,7 +54,18 @@ const parsing = (arg1, arg2) => {
   const parse1 = isJson(fullPath1) ? outputParse(readFile1) : convertYml(readFile1);
   const parse2 = isJson(fullPath2) ? outputParse(readFile2) : convertYml(readFile2);
 
-  return stringify([comparisonObjs(parse1, parse2)]);
+  return [parse1, parse2];
 };
 
-export default parsing;
+const genDiff = (arg1, arg2, format = 'stylish') => {
+  const parse = parsing(arg1, arg2, format);
+
+  if (format === 'plain') {
+    return _.flattenDeep(comparisonObjs(...parse, format)).filter((x) => x !== '')
+      .reduce((acc, cur) => `${acc}\n${cur}`, '');
+  }
+
+  return stringify([comparisonObjs(...parse, format)]);
+};
+
+export default genDiff;

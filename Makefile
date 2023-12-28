@@ -12,3 +12,6 @@ coverage:
 
 lint:
 	npm run lint
+
+install-command-in-npm:
+	npm link

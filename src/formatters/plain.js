@@ -12,7 +12,7 @@ const plain = (acc, value1, value2, path) => {
   } else if (_.isObject(value2) && _.isUndefined(value1)) {
     answer = `Property '${path}' was added with value: [complex value]`;
   } else if (_.isObject(value1) && value2) {
-    answer = `Property '${path}' was updated. From ${JSON.stringify(value2)} to [complex value]`;
+    answer = `Property '${path}' was updated. From [complex value] to ${JSON.stringify(value2)}`;
   } else if (_.isObject(value2) && value1) {
     answer = `Property '${path}' was updated. From ${JSON.stringify(value1)} to [complex value]`;
   } else if (value1 === value2) {

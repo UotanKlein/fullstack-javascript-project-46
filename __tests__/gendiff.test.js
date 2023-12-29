@@ -1,4 +1,4 @@
-import genDiff from '../index';
+import genDiff from '../index.js';
 
 const answer1 = `
 "{
@@ -68,7 +68,7 @@ Property 'common.setting5' was added with value: [complex value]
 Property 'common.setting6.doge.wow' was updated. From "" to "so much"
 Property 'common.setting6.ops' was added with value: "vops"
 Property 'group1.baz' was updated. From "bas" to "bars"
-Property 'group1.nest' was updated. From "str" to [complex value]
+Property 'group1.nest' was updated. From [complex value] to "str"
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]"
 `;

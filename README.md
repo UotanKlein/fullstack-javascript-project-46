@@ -15,6 +15,7 @@
 Находит различия между глубокими и плоскими JSON и YAML файлами в виде stylish.
 
 name1.json
+```
 {
   "common": {
     "setting1": "Value 1",
@@ -41,8 +42,9 @@ name1.json
     }
   }
 }
-
+```
 name2.json
+```
 {
   "common": {
     "follow": false,
@@ -76,12 +78,13 @@ name2.json
     "fee": 100500
   }
 }
-
+```
 ## gendiff ./name1.json ./name2.json 
 
 Или gendiff -f ./name1.json ./name2.json или gendiff --format stylish ./name1.json ./name2.json
 
 Output:
+```
 {
     common: {
       + follow: false
@@ -105,10 +108,7 @@ Output:
     group1: {
       - baz: bas
       + baz: bars
-      - foo: {
-            test: aboba
-        }
-      + foo: bar
+        foo: bar
       - nest: {
             key: value
         }
@@ -129,12 +129,13 @@ Output:
         fee: 100500
     }
 }
-
+```
 # gendiff --format plain <filepath1> <filepath2>
 
 Находит различия между глубокими и плоскими JSON и YAML файлами в виде plain.
 
 Output:
+```
 Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
 Property 'common.setting3' was updated. From true to null
@@ -143,17 +144,16 @@ Property 'common.setting5' was added with value: [complex value]
 Property 'common.setting6.doge.wow' was updated. From "" to "so much"
 Property 'common.setting6.ops' was added with value: "vops"
 Property 'group1.baz' was updated. From "bas" to "bars"
-Property 'group1.foo' was updated. From "bar" to [complex value]
 Property 'group1.nest' was updated. From "str" to [complex value]
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]
-
+```
 # gendiff --format json <filepath1> <filepath2>
 
 Находит различия между глубокими и плоскими JSON и YAML файлами в виде json.
 
 Output:
-
+```
 {
   "follow": {
     "oldValue": null,
@@ -199,9 +199,7 @@ Output:
   },
   "foo": {
     "oldValue": "bar",
-    "newValue": {
-      "test": "aboba"
-    }
+    "newValue": "bar"
   },
   "nest": {
     "oldValue": {
@@ -230,3 +228,4 @@ Output:
     }
   }
 }
+```

@@ -26,7 +26,7 @@ const stylish = (acc, cur, value1, value2) => {
   let answer = acc;
 
   if ((!_.isUndefined(value2) && !_.isUndefined(value1)) && (value1 !== value2)) {
-    answer = createResponse(acc, cur, [add, value2], [del, value1]);
+    answer = createResponse(acc, cur, [del, value1], [add, value2]);
   }
 
   if (_.isObject(value1) && _.isUndefined(value2)) {

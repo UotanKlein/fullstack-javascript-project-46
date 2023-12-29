@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import createResponse from '../src/func';
+import createResponse from '../src/func.js';
 
 const otherChange = (obj) => { // Приводит элементы внутри объекта в общую форму.
   const keys = Object.keys(obj);

@@ -1,4 +1,4 @@
-import parsing from '../src/parse';
+import genDiff from '../index.js';
 
 const answer1 = `
 "{
@@ -157,29 +157,29 @@ const answer4 = `
 `;
 
 test('comparison json files', () => {
-  expect(parsing('data/file1.json', 'data/file2.json')).toMatchInlineSnapshot(answer1);
+  expect(genDiff('data/file1.json', 'data/file2.json')).toMatchInlineSnapshot(answer1);
 });
 
 test('comparison yaml files', () => {
-  expect(parsing('data/file1.yml', 'data/file2.yml')).toMatchInlineSnapshot(answer1);
+  expect(genDiff('data/file1.yml', 'data/file2.yml')).toMatchInlineSnapshot(answer1);
 });
 
 test('comparison flatten json files', () => {
-  expect(parsing('data/flatfile1.json', 'data/flatfile2.json')).toMatchInlineSnapshot(answer2);
+  expect(genDiff('data/flatfile1.json', 'data/flatfile2.json')).toMatchInlineSnapshot(answer2);
 });
 
 test('comparison flatten json files plain', () => {
-  expect(parsing('data/file1.json', 'data/file2.json', 'plain')).toMatchInlineSnapshot(answer3);
+  expect(genDiff('data/file1.json', 'data/file2.json', 'plain')).toMatchInlineSnapshot(answer3);
 });
 
 test('comparison flatten yaml files plain', () => {
-  expect(parsing('data/file1.yml', 'data/file2.yml', 'plain')).toMatchInlineSnapshot(answer3);
+  expect(genDiff('data/file1.yml', 'data/file2.yml', 'plain')).toMatchInlineSnapshot(answer3);
 });
 
 test('comparison flatten json files json', () => {
-  expect(parsing('data/file1.json', 'data/file2.json', 'json')).toMatchInlineSnapshot(answer4);
+  expect(genDiff('data/file1.json', 'data/file2.json', 'json')).toMatchInlineSnapshot(answer4);
 });
 
 test('comparison flatten yaml files json', () => {
-  expect(parsing('data/file1.yml', 'data/file2.yml', 'json')).toMatchInlineSnapshot(answer4);
+  expect(genDiff('data/file1.yml', 'data/file2.yml', 'json')).toMatchInlineSnapshot(answer4);
 });

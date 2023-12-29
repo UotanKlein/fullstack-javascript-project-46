@@ -2,7 +2,7 @@
 
 import { program } from 'commander';
 
-import genDiff from '../index.js';
+import genDiff from '../src/index';
 
 program
   .name('gendiff')
@@ -12,13 +12,7 @@ program
   .arguments('<filepath1> <filepath2>')
   .helpOption('-h, --help', 'output usage information')
   .action((filepath1, filepath2, type) => {
-    if (type.format === 'plain') {
-      console.log(genDiff(filepath1, filepath2, 'plain'));
-    } else if (type.format === 'json') {
-      console.log(genDiff(filepath1, filepath2, 'json'));
-    } else {
-      console.log(genDiff(filepath1, filepath2));
-    }
+    console.log(genDiff(filepath1, filepath2, type.format));
   });
 
 program.parse(process.argv);

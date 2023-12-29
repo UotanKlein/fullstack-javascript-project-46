@@ -1,4 +1,4 @@
-import genDiff from '../index.js';
+import genDiff from '../src/index';
 
 const answer1 = `
 "{
@@ -151,29 +151,29 @@ const answer4 = `
 `;
 
 test('comparison json files', () => {
-  expect(genDiff('data/file1.json', 'data/file2.json')).toMatchInlineSnapshot(answer1);
+  expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json')).toMatchInlineSnapshot(answer1);
 });
 
 test('comparison yaml files', () => {
-  expect(genDiff('data/file1.yml', 'data/file2.yml')).toMatchInlineSnapshot(answer1);
+  expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml')).toMatchInlineSnapshot(answer1);
 });
 
 test('comparison flatten json files', () => {
-  expect(genDiff('data/flatfile1.json', 'data/flatfile2.json')).toMatchInlineSnapshot(answer2);
+  expect(genDiff('__fixtures__/flatfile1.json', '__fixtures__/flatfile2.json')).toMatchInlineSnapshot(answer2);
 });
 
 test('comparison json files plain', () => {
-  expect(genDiff('data/file1.json', 'data/file2.json', 'plain')).toMatchInlineSnapshot(answer3);
+  expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json', 'plain')).toMatchInlineSnapshot(answer3);
 });
 
 test('comparison yaml files plain', () => {
-  expect(genDiff('data/file1.yml', 'data/file2.yml', 'plain')).toMatchInlineSnapshot(answer3);
+  expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'plain')).toMatchInlineSnapshot(answer3);
 });
 
 test('comparison json files json', () => {
-  expect(genDiff('data/file1.json', 'data/file2.json', 'json')).toMatchInlineSnapshot(answer4);
+  expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json', 'json')).toMatchInlineSnapshot(answer4);
 });
 
 test('comparison yaml files json', () => {
-  expect(genDiff('data/file1.yml', 'data/file2.yml', 'json')).toMatchInlineSnapshot(answer4);
+  expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml', 'json')).toMatchInlineSnapshot(answer4);
 });

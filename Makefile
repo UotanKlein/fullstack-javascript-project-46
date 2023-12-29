@@ -5,13 +5,13 @@ dependencies:
 	npm install
 
 test:
-	npm run test
+	npm test
 
 coverage:
 	npm run test -- --coverage
 
 lint:
-	npm run lint
+	npx eslint .
 
-install-command-in-npm:
+gendiff:
 	npm link

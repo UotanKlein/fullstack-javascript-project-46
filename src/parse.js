@@ -8,7 +8,7 @@ const outputParse = (obj) => JSON.parse(obj); // Парсит json объект
 const outputReadFile = (filePath) => fs.readFileSync(filePath, 'utf8'); // Читает файл и возвращает содерание
 const outputResolve = (arg) => path.resolve(arg); // Возвращает полный путь до файла
 
-const genDiff = (arg1, arg2) => {
+const parsing = (arg1, arg2) => {
   const fullPath1 = outputResolve(arg1);
   const fullPath2 = outputResolve(arg2);
 
@@ -21,4 +21,4 @@ const genDiff = (arg1, arg2) => {
   return [parse1, parse2];
 };
 
-export default genDiff;
+export default parsing;

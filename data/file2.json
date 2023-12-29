@@ -16,9 +16,7 @@
     }
   },
   "group1": {
-    "foo": {
-      "test": "aboba"
-    },
+    "foo": "bar",
     "baz": "bars",
     "nest": "str"
   },

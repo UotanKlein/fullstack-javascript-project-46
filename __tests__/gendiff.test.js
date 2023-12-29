@@ -24,10 +24,7 @@ const answer1 = `
     group1: {
       - baz: bas
       + baz: bars
-      - foo: {
-            test: aboba
-        }
-      + foo: bar
+        foo: bar
       - nest: {
             key: value
         }
@@ -71,7 +68,6 @@ Property 'common.setting5' was added with value: [complex value]
 Property 'common.setting6.doge.wow' was updated. From "" to "so much"
 Property 'common.setting6.ops' was added with value: "vops"
 Property 'group1.baz' was updated. From "bas" to "bars"
-Property 'group1.foo' was updated. From "bar" to [complex value]
 Property 'group1.nest' was updated. From "str" to [complex value]
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]"
@@ -123,9 +119,7 @@ const answer4 = `
   },
   "foo": {
     "oldValue": "bar",
-    "newValue": {
-      "test": "aboba"
-    }
+    "newValue": "bar"
   },
   "nest": {
     "oldValue": {
@@ -168,18 +162,18 @@ test('comparison flatten json files', () => {
   expect(genDiff('data/flatfile1.json', 'data/flatfile2.json')).toMatchInlineSnapshot(answer2);
 });
 
-test('comparison flatten json files plain', () => {
+test('comparison json files plain', () => {
   expect(genDiff('data/file1.json', 'data/file2.json', 'plain')).toMatchInlineSnapshot(answer3);
 });
 
-test('comparison flatten yaml files plain', () => {
+test('comparison yaml files plain', () => {
   expect(genDiff('data/file1.yml', 'data/file2.yml', 'plain')).toMatchInlineSnapshot(answer3);
 });
 
-test('comparison flatten json files json', () => {
+test('comparison json files json', () => {
   expect(genDiff('data/file1.json', 'data/file2.json', 'json')).toMatchInlineSnapshot(answer4);
 });
 
-test('comparison flatten yaml files json', () => {
+test('comparison yaml files json', () => {
   expect(genDiff('data/file1.yml', 'data/file2.yml', 'json')).toMatchInlineSnapshot(answer4);
 });

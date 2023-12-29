@@ -2,7 +2,7 @@
 
 import { program } from 'commander';
 
-import genDiff from '../src/index';
+import genDiff from '../index';
 
 program
   .name('gendiff')

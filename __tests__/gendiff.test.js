@@ -1,4 +1,4 @@
-import genDiff from '../src/index';
+import genDiff from '../index';
 
 const answer1 = `
 "{

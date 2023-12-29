@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import comparisonObjs from './comparison';
-import parsing from './parse';
+import comparisonObjs from './src/comparison';
+import parsing from './src/parse';
 
 const stringify = (structure, replacer = ' ', spacesCount = 4) => { // Преобразованные объекты собирает в сравнение для вывода.
   const iter = (currentValue, depth) => {

@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import findAnswer from '../formatters/index.js';
-import createResponse from './func.js';
+import findAnswer from '../formatters/index';
+import createResponse from './func';
 
 const isPlain = (format) => format === 'plain';
 

@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 import _ from 'lodash';
-import comparisonObjs from './comparison.js';
+import comparisonObjs from './comparison';
 
 const convertYml = (content) => yaml.load(content); // Конвертирует yaml в json
 const isJson = (filePath) => path.extname(filePath) === '.json'; // Проверяет является ли объект json

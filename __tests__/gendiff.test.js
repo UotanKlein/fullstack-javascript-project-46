@@ -1,4 +1,4 @@
-import parsing from '../src/parse.js';
+import parsing from '../src/parse';
 
 const answer1 = `
 "{

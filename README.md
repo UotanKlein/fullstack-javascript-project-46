@@ -12,7 +12,7 @@
 
 # gendiff <filepath1> <filepath2>
 
-Находит различия между глубокими и плоскими JSON и YAML файлами в виде stylish.
+Находит различия между глубокими и плоскими JSON и YAML файлами в виде stylish. 1
 
 name1.json
 ```
